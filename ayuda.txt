@@ -1,0 +1,214 @@
+EXTENSIONES:
+
+-bootstrap v4 snippets
+-IntelliSense for CSS class names in HTML
+-Laravel 5 Snippets
+-laravel blade snippets
+-laravel snippets
+-php intelephense
+
+============================================================================
+
+
+
+1-. para crear proyecto :
+
+composer create-project --prefer-dist laravel/laravel sistema
+
+
+
+============================================================================
+
+En 
+
+app >> providers >> AppServiceProvider.php
+
+use Illuminate\Support\Facades\Schema;
+y en public function boot()
+    {
+        Schema::defaultStringLength(191);
+    }
+
+es para que los string tenga un largo de max 191 en mis tablas.
+
+
+============================================================================
+
+Migraciones 
+
+database > migrations
+
+ahí están todas las migraciones y para subirlas :
+
+php artisan migrate
+
+
+============================================================================
+
+Ubicación :
+
+
+Database.
+database > migrations
+
+
+
+Controllers
+app > http > Controllers
+
+
+
+Vistas
+resources  > views 
+
+
+Modelos
+app > http > Models
+
+
+rutas 
+routes > web.php
+
+============================================================================
+
+PARA CREAR MODELO CONTROLADOR RECURSO
+
+
+php artisan make:model Empleados -mcr
+
+(se crea una tabla migración controller y modelo
+
+
+============================================================================
+
+RUTAS ENTRE CONTROLLER Y Vistas
+
+(para ver lista de rutas)
+php artisan route:list
+
+
+============================================================================
+
+JUEGO ENTRE CONTREOLLER y WEB.PHP (reoutes)
+
+En web.php se llaman las rutas. Se da un get y dentro va la ruta del navegador, junto a una función
+que retorna una vista en específico como por ejemplo:
+
+Route::get('/empleados', function(){
+    return view('empleados.index');
+});
+
+si se pone http://localhost/sistema/public/empleados busca en la carpeta views/empleados/index.php
+
+POR OTRO LADO......
+
+Anteriormente se creó una -mcr (migracion controller modelo) de empleado.
+
+Dentro de EmpleadosController.php hay as siguientes funciones:
+-index
+-create
+-store
+-show
+-edit
+-update
+-destroy
+
+La idea, es usar la funciones de este empleadoController para llamar las vistas.
+
+web.php   --(llama función de )---->    EmpleadoController (index(return view('empleados.index')))
+
+
+EmpleadoController
+
+-index
+return view('empleados.index');
+
+-create
+return view('empleados.create');
+
+-store
+-show
+-edit
+-update
+-destroy
+
+
+...........
+
+en web.php ahora se llama al EmpleadoController así:
+
+Route::get('/empleados', [EmpleadosController::class, 'index']);
+
+Route::get('/empleados/create', [EmpleadosController::class, 'create']);
+
+pero en vez de esos dos, se pondrá 
+
+Route::resource('empleados', EmpleadosController::class);
+
+el cual crea las rutas de una a todos los métodos dentro del controlador.
+
+
+Resumiendo, desde la web.php se llama la función del controller que retorna una vista.
+
+
+============================================================================
+
+Store
+
+Desde la vista, por post, se mandan los datos a empleado/,
+se guardan todos los datos por post.
+
+============================================================================
+
+Mostrar Fotos
+
+Cuando hay qeu mostrar fotos, hay que hacer la publicación del storage, para eso hay que abrir
+el terminal darle:
+Se genera un enlace a las fotografías
+
+
+php artisan storage:link
+
+============================================================================
+
+FORMULARIO FINAL
+
+El formulñario al final se carga a travez de form.blade, haciendo un if para cargar values en crear 
+o modificar.
+
+============================================================================
+
+Hacer un LOGIN
+
+en cmd:
+
+composer require laravel/ui
+
+php artisan ui vue --auth
+
+
+============================================================================
+
+Bootstrap ubicación:
+
+resources > views > layouts > app.blade.php
+
+
+============================================================================
+
+
+VALIDACIONES
+
+
+Se hace en el controllador, en estre caso, empleados controller, en store
+
+
+
+
+
+
+
+
+
+
+
